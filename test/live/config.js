@@ -1,7 +1,8 @@
 // Fill me with your Sandbox API credentials...
 
 module.exports = {
-	oAuthToken: "",
+	accessToken: "",
+	merchantAccessToken: "",
 	appKey: "",
 	appSecret: ""
 };
