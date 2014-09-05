@@ -4,7 +4,7 @@ var helper = require('./helper.js');
 
 var dwolla = require('../../lib/dwolla')(config.appKey, config.appSecret);
 
-dwolla.sandbox = true;
+dwolla.sandbox = config.sandbox;
 
 describe('Contacts', function() {
 	describe('get contacts', function() {

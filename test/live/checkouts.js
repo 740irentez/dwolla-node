@@ -4,7 +4,7 @@ var helper = require('./helper.js');
 
 var dwolla = require('../../lib/dwolla')(config.appKey, config.appSecret);
 
-dwolla.sandbox = true;
+dwolla.sandbox = config.sandbox;
 
 describe('create checkout session', function() {
 	it('Should be successful and return a valid response', function(done) {

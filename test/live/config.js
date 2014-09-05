@@ -2,7 +2,9 @@
 
 module.exports = {
 	accessToken: "",
+	fundingSource: "",
 	merchantAccessToken: "",
 	appKey: "",
-	appSecret: ""
+	appSecret: "",
+	sandbox: true
 };
