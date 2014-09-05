@@ -1,5 +1,6 @@
 var should = require('should');
 var config = require('./config.js');
+var helper = require('./helper.js');
 
 var dwolla = require('../../lib/dwolla')(config.appKey, config.appSecret);
 
@@ -36,11 +37,11 @@ describe('create checkout session', function() {
 
 			checkout.should.have.property('checkoutId')
 				.which.is.a.String
-				.and.match(/[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}/);
+				.and.match(helper.patterns.checkoutId);
 
 			checkout.should.have.property('checkoutURL')
 				.which.is.a.String
-				.and.match(/https:\/\/uat.dwolla.com\/payment\/checkout\/[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}/);
+				.and.match(helper.patterns.checkoutURL);
 
 			done();
 		});

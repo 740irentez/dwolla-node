@@ -1,5 +1,6 @@
 var should = require('should');
 var config = require('./config.js');
+var helper = require('./helper.js');
 
 var dwolla = require('../../lib/dwolla')(config.appKey, config.appSecret);
 
@@ -31,7 +32,7 @@ describe('Account', function() {
 
 			 	info.should.have.properties('Id', 'Name', 'Latitude', 'Longitude');
 			 	info.Id.should.be.a.String
-			 		.and.match(/[0-9]{3}-[0-9]{3}-[0-9]{4}$/);
+			 		.and.match(helper.patterns.dwollaId);
 			 	info.Name.should.be.a.String;
 			 	info.Latitude.should.be.a.Number;
 			 	info.Longitude.should.be.a.Number;
@@ -58,7 +59,7 @@ describe('Account', function() {
 			  response.City.should.be.a.String;
 			  response.State.should.be.a.String;
 			  response.Type.should.be.a.String;
-			  response.Id.should.match(/[0-9]{3}-[0-9]{3}-[0-9]{4}$/);
+			  response.Id.should.match(helper.patterns.dwollaId);
 			  response.Name.should.be.a.String;
 			 	response.Latitude.should.be.a.Number;
 			 	response.Longitude.should.be.a.Number;
