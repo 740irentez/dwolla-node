@@ -1,6 +1,6 @@
 # live integration tests
 
-Here lie a nearly complete suite of tests to pit the library against our API (can be configured to hit production or sandbox (UAT)).
+Here lies a nearly complete suite of tests to pit the library against our API (can be configured to hit production or sandbox (UAT)).
 
 Hits the API and makes sure the data we get back makes sense, and is of the right data type.
 
