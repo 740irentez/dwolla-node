@@ -34,15 +34,13 @@ describe('create checkout session', function() {
 		dwolla.createCheckout('https://google.com', purchaseOrder, params, function(err, checkout) {
 			should(err).should.be.undefined;
 
-			// checkout.should.have.property('checkoutId')
-			// 	.which.should.be.a.String
-			// 	.and.should.match(/[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}/);
+			checkout.should.have.property('checkoutId')
+				.which.is.a.String
+				.and.match(/[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}/);
 
-			// checkout.should.have.property('checkoutURL')
-			// 	which.should.be.a.String;
-
-			checkout.checkoutId.should.match(/[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}/);
-			checkout.checkoutURL.should.match(/https:\/\/uat.dwolla.com\/payment\/checkout\/[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}/);
+			checkout.should.have.property('checkoutURL')
+				.which.is.a.String
+				.and.match(/https:\/\/uat.dwolla.com\/payment\/checkout\/[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}/);
 
 			done();
 		});
@@ -113,33 +111,32 @@ describe('retrieve checkout session', function() {
 		dwolla.getCheckout(existingCheckout.checkoutId, function(err, response) {
 			response.should.have.properties("CheckoutId", "Discount", "Shipping", "Tax", "Total", "Status", "FundingSource", "TransactionId", "ProfileId", "DestinationTransactionId", "OrderItems", "Metadata");
 
-			response.CheckoutId.should.match(/[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}/);
+			response.CheckoutId.should.be.a.String.and.match(/[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}/);
 			(response.Discount == null).should.be.true;
 			(response.Shipping == null).should.be.true;
 			(response.Tax == null).should.be.true;
-			response.Total.should.equal(5);
-			response.Status.should.equal('Created');
+			response.Total.should.be.a.Number.and.equal(5);
+			response.Status.should.be.a.String.and.equal('Created');
 			(response.FundingSource == null).should.be.true;
 			(response.TransactionId == null).should.be.true;
 			(response.ProfileId == null).should.be.true;
 			(response.DestinationTransactionId == null).should.be.true;
-			response.OrderItems.should.be.an.Array;
+			response.OrderItems.should.be.an.Array
+				.and.containEql({ 
+					Description: 'A somewhat tasty non-vegetarian sandwich',
+	      	Name: 'Prime Rib Sandwich',
+		      Price: 2,
+		      Quantity: 1,
+		      Total: 2 
+	    	})
+	    	.and.containEql({ 
+					Description: 'Yum!',
+		      Name: 'Ham Sandwich',
+		      Price: 1,
+		      Quantity: 3,
+		      Total: 3 
+	    	});
 
-			response.OrderItems.should.containEql({ 
-				Description: 'A somewhat tasty non-vegetarian sandwich',
-      	Name: 'Prime Rib Sandwich',
-	      Price: 2,
-	      Quantity: 1,
-	      Total: 2 
-    	});
-
-    	response.OrderItems.should.containEql({ 
-				Description: 'Yum!',
-	      Name: 'Ham Sandwich',
-	      Price: 1,
-	      Quantity: 3,
-	      Total: 3 
-    	});
     	(response.Metadata == null).should.be.true;
 
 			done();
