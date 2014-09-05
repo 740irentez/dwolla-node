@@ -12,7 +12,8 @@ describe('Account', function() {
 
 			dwolla.balance(function(err, balance) {
 				// sample balance: 28041.6
-				balance.should.be.a.Number;
+				balance.should.be.a.Number
+					.and.above(0);
 				done();
 			});
 
@@ -29,7 +30,8 @@ describe('Account', function() {
 			 	//  Longitude: 0 }
 
 			 	info.should.have.properties('Id', 'Name', 'Latitude', 'Longitude');
-			 	info.Id.should.match(/[0-9]{3}-[0-9]{3}-[0-9]{4}$/);
+			 	info.Id.should.be.a.String
+			 		.and.match(/[0-9]{3}-[0-9]{3}-[0-9]{4}$/);
 			 	info.Name.should.be.a.String;
 			 	info.Latitude.should.be.a.Number;
 			 	info.Longitude.should.be.a.Number;
