@@ -2,10 +2,12 @@
 
 module.exports = {
 	accessToken: "",
-	pin: "",
 	fundingSource: "",
+	pin: "",
 	merchantAccessToken: "",
 	merchantPIN: "",
+	merchantDwollaID: "",
+	merchantEmail: "",
 	appKey: "",
 	appSecret: "",
 	sandbox: true

@@ -11,10 +11,12 @@ You'll need to populate `test/live/config.js` with your API credentials and test
 ```js
 module.exports = {
 	accessToken: "",
-	pin: "",
 	fundingSource: "",
+	pin: "",
 	merchantAccessToken: "",
 	merchantPIN: "",
+	merchantDwollaID: "",
+	merchantEmail: "",
 	appKey: "",
 	appSecret: "",
 	sandbox: true
@@ -25,7 +27,7 @@ To run all the tests, you'll need two accounts: one individual-type account with
 
 For the individual-type account, provide an `accessToken` (generate one using our [token generator](https://developers.dwolla.com/dev/token)), the account `pin`, and the attached `fundingSource` ID.
 
-For the merchant-type account, provide an access token for it via `merchantAccessToken`, and the account's PIN in `merchantPIN`.
+For the merchant-type account, provide an access token for it via `merchantAccessToken`, the account's PIN in `merchantPIN`, Dwolla ID `merchantDwollaID`, and email address of merchant account: `merchantEmail`.
 
 To test against production, set `sandbox` to `false`.
 
