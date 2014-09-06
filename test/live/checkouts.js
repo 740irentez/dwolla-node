@@ -7,6 +7,10 @@ var dwolla = require('../../lib/dwolla')(config.appKey, config.appSecret);
 dwolla.sandbox = config.sandbox;
 
 describe('Checkouts', function() {
+
+	// TODO: test Submit Directly and old Gateway endpoint
+	// TODO: test params
+
 	describe('create checkout session', function() {
 		it('Should be successful and return a valid response', function(done) {
 			var purchaseOrder = {
@@ -38,7 +42,7 @@ describe('Checkouts', function() {
 
 				checkout.should.have.property('checkoutId')
 					.which.is.a.String
-					.and.match(helper.patterns.checkoutId);
+					.and.match(helper.patterns.UUID);
 
 				checkout.should.have.property('checkoutURL')
 					.which.is.a.String
