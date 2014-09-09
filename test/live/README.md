@@ -25,9 +25,9 @@ module.exports = {
 
 To run all the tests, you'll need two accounts: one individual-type account with an attached funding source, and another merchant-type account.  The reason is, some of the tests require two accounts to implement, like Refund and Money Request.
 
-For the individual-type account, provide an `accessToken` (generate one using our [token generator](https://developers.dwolla.com/dev/token)), the account `pin`, and the attached `fundingSource` ID.
+For the individual-type account, provide an `accessToken` with all OAuth scopes (generate one using our [token generator](https://developers.dwolla.com/dev/token)), the account `pin`, and the attached `fundingSource` ID.
 
-For the merchant-type account, provide an access token for it via `merchantAccessToken`, the account's PIN in `merchantPIN`, Dwolla ID `merchantDwollaID`, and email address of merchant account: `merchantEmail`.
+For the merchant-type account, provide an access token with all OAuth scopes for it via `merchantAccessToken`, the account's PIN in `merchantPIN`, Dwolla ID `merchantDwollaID`, and email address of merchant account: `merchantEmail`.
 
 To test against production, set `sandbox` to `false`.
 
