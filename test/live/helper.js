@@ -10,6 +10,8 @@ module.exports = {
     USER_TYPES: ['Dwolla', 'Email', 'Phone'],
     REQUEST_STATUSES: ['Pending', 'Cancelled', 'Paid'],
     MASSPAY_JOB_STATUSES: ['queued', 'processing', 'complete'],
-    MASSPAY_ITEM_STATUSES: ['success', 'notrun', 'failed']
+    MASSPAY_ITEM_STATUSES: ['success', 'notrun', 'failed'],
+    TRANSACTION_TYPES: ['money_sent', 'money_received', 'deposit', 'withdrawal', 'fee'],
+    TRANSACTION_STATUSES: ['pending', 'processed', 'failed', 'cancelled', 'reclaimed']
   }
 };
