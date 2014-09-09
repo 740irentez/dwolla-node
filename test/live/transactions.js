@@ -206,15 +206,13 @@ describe('Transaction', function() {
 	  			(_.contains(helper.constants.USER_TYPES, tx.UserType)).should.be.true;
 
 
-					tx.DestinationId.should.be.a.String
-						.and.not.empty;
+					tx.DestinationId.should.be.a.String; // can be empty, if type Fee
 					tx.DestinationName.should.be.a.String
 						.and.not.empty;
 
 					tx.Destination.should.be.an.Object
 	          .and.have.properties('Id', 'Name', 'Type', 'Image');
 	        tx.Destination.Id.should.be.a.String;
-	        tx.Destination.Id.should.not.be.empty;
 	        tx.Destination.Name.should.be.a.String
 	          .and.not.empty;
 	        tx.Destination.Type.should.be.a.String
