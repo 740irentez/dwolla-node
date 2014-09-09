@@ -8,9 +8,6 @@ var dwolla = require('../../lib/dwolla')(config.appKey, config.appSecret);
 dwolla.sandbox = config.sandbox;
 
 describe('MassPay', function() {
-  var JOB_STATUSES = ['queued', 'processing', 'complete'];
-  var ITEM_STATUSES = ['success', 'notrun', 'failed'];
-
   var items = [
     {
       amount: "12.00",
@@ -135,7 +132,7 @@ describe('MassPay', function() {
           .and.match(helper.patterns.ISOTimestamp);
         res.Status.should.be.a.String
           .and.not.empty;
-        _.contains(JOB_STATUSES, res.Status).should.be.true;
+        _.contains(helper.constants.MASSPAY_JOB_STATUSES, res.Status).should.be.true;
         res.ItemSummary.should.be.an.Object
           .with.properties("Count", "Completed", "Successful");
 
@@ -193,7 +190,7 @@ describe('MassPay', function() {
         item.Amount.should.be.a.Number
           .and.eql(12);
         item.Status.should.be.a.String;
-        (_.contains(ITEM_STATUSES, item.Status)).should.be.true;
+        (_.contains(helper.constants.MASSPAY_ITEM_STATUSES, item.Status)).should.be.true;
         (item.Status == 'notrun' || item.Status == 'success').should.be.true; // at this point, this job could have been processed/processing
         (item.TransactionId == null || typeof item.TransactionId == 'number').should.be.true; // if already run, will be a number, else, null
         (item.Error == null).should.be.true;
@@ -250,7 +247,7 @@ describe('MassPay', function() {
         res.Amount.should.be.a.Number
           .and.eql(0.5);
         res.Status.should.be.a.String;
-        (_.contains(ITEM_STATUSES, res.Status)).should.be.true;
+        (_.contains(helper.constants.MASSPAY_ITEM_STATUSES, res.Status)).should.be.true;
         (res.TransactionId == null || typeof res.TransactionId == 'number').should.be.true; // if already run, will be a number, else, null
         (res.Error == null).should.be.true;
         res.CreatedDate.should.be.a.String
@@ -304,7 +301,7 @@ describe('MassPay', function() {
           .and.match(helper.patterns.ISOTimestamp);
         job.Status.should.be.a.String
           .and.not.empty;
-        (_.contains(JOB_STATUSES, job.Status)).should.be.true;
+        (_.contains(helper.constants.MASSPAY_JOB_STATUSES, job.Status)).should.be.true;
 
         job.ItemSummary.should.be.an.Object
           .with.properties("Count", "Completed", "Successful");
