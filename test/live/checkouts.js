@@ -14,7 +14,7 @@ describe('Checkouts', function() {
   describe('create checkout session', function() {
     it('Should be successful and return a valid response', function(done) {
       var purchaseOrder = {
-        destinationId: '812-740-4294',
+        destinationId: dwolla.sandbox ? '812-740-4294' : '812-713-9234',
         total: '5.00',
         orderItems: [
           {
@@ -60,7 +60,7 @@ describe('Checkouts', function() {
     before(function(done) {
       // create a checkout session...
       var purchaseOrder = {
-        destinationId: '812-740-4294',
+        destinationId: dwolla.sandbox ? '812-740-4294' : '812-713-9234',
         total: '5.00',
         orderItems: [
           {
