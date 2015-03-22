@@ -1,5 +1,7 @@
 # dwolla-node: Dwolla API wrapper
 
+[![Join the chat at https://gitter.im/Dwolla/dwolla-node](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Dwolla/dwolla-node?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ![travis-ci badge](https://travis-ci.org/Dwolla/dwolla-node.svg?branch=master)
 
 Bindings for the Dwolla API.  All API methods are asynchronous.  
