@@ -9,7 +9,7 @@ Bindings for the Dwolla API.  All API methods are asynchronous.
 Officially maintained by Dwolla.  Contributions are welcomed with open arms.
 
 ## Version
-1.1.1
+1.1.2
 
 ## Installation
 
@@ -67,9 +67,10 @@ Helper Methods:
 
 Authentication Methods:
 
-    authUrl([redirect_uri, scope])          ==> (string) OAuth permissions page URL
-    finishAuth(code[, redirect_uri, fn])  ==> (object) access_token, refresh_token, expiration times
-    refreshAuth(refresh_token, fn)      ==> (object) access_token, refresh_token, expiration times
+    authUrl([redirect_uri, scope])         ==> (string) OAuth permissions page URL
+    finishAuth(code[, redirect_uri, fn])   ==> (object) access_token, refresh_token, expiration times
+    refreshAuth(refresh_token, fn)         ==> (object) access_token, refresh_token, expiration times
+    catalog(token, fn)                     ==> (object) {...} collection of elligible endpoints
 
 Account Methods:
 
