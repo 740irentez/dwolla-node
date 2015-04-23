@@ -58,5 +58,18 @@ app.get('/refresh', function(req, res) {
 });
 
 
+app.get('/catalog', function(req, res) {
+    Dwolla.catalog(req.query.token, function(error, links) {
+        if (error) return res.send(error);
+
+        var output = "The endpoints that you can use are:"
+        links.forEach(function(link) {
+            output += "<br /> " + link;
+        })
+        return res.send(output);
+    });
+});
+
+
 // Start the server
 app.listen(3000);
