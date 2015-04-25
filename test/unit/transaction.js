@@ -58,6 +58,19 @@ describe('Transaction', function() {
     });
   });
 
+  describe('schedule transaction', function() {
+    it('Should make the correct request', function(done) {
+
+      dwolla.setToken(init.fakeKeys.accessToken);
+      dwolla.schedule('1234', '812-111-1111', '10.00', '2015-09-09', 'abcdef', function() {});
+
+      init.restlerMock.lastRequest.url.should.equal('https://www.dwolla.com/oauth/rest/transactions/scheduled');
+      init.restlerMock.lastRequest.options.should.eql({oauth_token: init.fakeKeys.accessToken, pin: '1234', destinationId: '812-111-1111', amount: '10.00', scheduleDate: '2015-09-09', fundsSource: 'abcdef'});
+
+      done();
+    });
+  });
+
   describe('process a refund', function() {
     it('Should make the correct request', function(done) {
 

@@ -102,6 +102,7 @@ Transactions Methods:
     transactionsByApp(params, fn)                   ==> (array) a list of transactions facilitated by the application, matching the search criteria
     transactionsStats(params, fn)                   ==> (object) statistics about the account associated with the token
     refund(pin, transactionId, fundsSource, amount, params, fn)         => (object) resulting Refund transaction resource
+    schedule(pin, destinationId, amount, scheduleDate, fundsSource, params, fn) => (object) resulting scheduled transaction
     
 Money Request Methods:
 
