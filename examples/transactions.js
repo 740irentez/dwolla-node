@@ -116,3 +116,12 @@ Dwolla.deleteAllScheduled(function(err, data) {
   if (err) {console.log(err);}
   console.log(data);
 });
+
+/**
+ * Example 11:
+ * Get scheduled transaction with ID 'abcd123'
+ */
+Dwolla.scheduledById('abcd123', function(err, data) {
+  if (err) {console.log(err);}
+  console.log(data);
+});
