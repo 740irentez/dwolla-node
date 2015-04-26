@@ -103,6 +103,13 @@ Transactions Methods:
     transactionsStats(params, fn)                   ==> (object) statistics about the account associated with the token
     refund(pin, transactionId, fundsSource, amount, params, fn)         => (object) resulting Refund transaction resource
     schedule(pin, destinationId, amount, scheduleDate, fundsSource, params, fn) => (object) resulting scheduled transaction
+    scheduled(fn)                                   ==> (object) list of scheduled transactions
+    scheduledById(id, fn)                           ==> (object) requested scheduled transaction
+    editScheduled(id, pin, fn)                      ==> (object) resulting edited scheduled transaction
+    deleteScheduledById(id, pin, fn)                ==> (string) id of deleted scheduled transaction
+    deleteAllScheduled(pin, fn)                     ==> (object) list of ids of deleted scheduled transactions
+
+
     
 Money Request Methods:
 
@@ -128,6 +135,10 @@ Offsite Gateway Methods:
     verifyGatewaySignature(signature, checkout_id, amount)      ==> (bool) is signature valid?
 
 ## Changelog
+
+1.1.2
+* Added new OAuth/catalog endpoint.
+* Added new `transactions/scheduled` endpoint with unit tests and examples.
 
 1.1.1
 * Change module name to 'dwolla-node'
