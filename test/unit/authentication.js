@@ -12,7 +12,7 @@ describe('Authentication', function() {
       var redirect = "https://www.google.com/";
       var url = dwolla.authUrl(redirect);
 
-      var format = 'https://uat.dwolla.com/oauth/v2/authenticate?client_id=%s&response_type=code&scope=Send%7CTransactions%7CBalance%7CRequest%7CContacts%7CAccountInfoFull%7CFunding%7CManageAccount&redirect_uri=%s';
+      var format = 'https://uat.dwolla.com/oauth/v2/authenticate?client_id=%s&response_type=code&scope=Send%7CTransactions%7CBalance%7CRequest%7CContacts%7CAccountInfoFull%7CFunding%7CManageAccount%7CScheduled&redirect_uri=%s';
 
       url.should.equal(util.format(format, encodeURIComponent(init.fakeKeys.appKey), encodeURIComponent(redirect)));
       done();
@@ -23,7 +23,7 @@ describe('Authentication', function() {
       var redirect = "https://www.google.com/";
       var url = dwolla.authUrl(redirect);
 
-      var format = 'https://www.dwolla.com/oauth/v2/authenticate?client_id=%s&response_type=code&scope=Send%7CTransactions%7CBalance%7CRequest%7CContacts%7CAccountInfoFull%7CFunding%7CManageAccount&redirect_uri=%s';
+      var format = 'https://www.dwolla.com/oauth/v2/authenticate?client_id=%s&response_type=code&scope=Send%7CTransactions%7CBalance%7CRequest%7CContacts%7CAccountInfoFull%7CFunding%7CManageAccount%7CScheduled&redirect_uri=%s';
 
       url.should.equal(util.format(format, encodeURIComponent(init.fakeKeys.appKey), encodeURIComponent(redirect)));
       done();
