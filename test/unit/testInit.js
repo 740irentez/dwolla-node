@@ -40,8 +40,25 @@ var restlerMock = {
   	this.lastRequest = {
     	url: url,
     	options: data
+  },
+    this.mockEmitter = new events.EventEmitter();
+    return this.mockEmitter;
+  },
+  putJson: function(url, data) {
+    this.lastRequest = {
+      url: url,
+      options: data
+  },
+    this.mockEmitter = new events.EventEmitter();
+    return this.mockEmitter;
+  },
+  del: function(url, options) {
+    this.lastRequest = {
+      url: url,
+      options: options.query
     };
 
+    // store and return fake RestRequest object:
     this.mockEmitter = new events.EventEmitter();
     return this.mockEmitter;
   }

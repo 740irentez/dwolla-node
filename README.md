@@ -9,7 +9,7 @@ Bindings for the Dwolla API.  All API methods are asynchronous.
 Officially maintained by Dwolla.  Contributions are welcomed with open arms.
 
 ## Version
-1.1.1
+1.1.2
 
 ## Installation
 
@@ -67,9 +67,10 @@ Helper Methods:
 
 Authentication Methods:
 
-    authUrl([redirect_uri, scope])          ==> (string) OAuth permissions page URL
-    finishAuth(code[, redirect_uri, fn])  ==> (object) access_token, refresh_token, expiration times
-    refreshAuth(refresh_token, fn)      ==> (object) access_token, refresh_token, expiration times
+    authUrl([redirect_uri, scope])         ==> (string) OAuth permissions page URL
+    finishAuth(code[, redirect_uri, fn])   ==> (object) access_token, refresh_token, expiration times
+    refreshAuth(refresh_token, fn)         ==> (object) access_token, refresh_token, expiration times
+    catalog(token, fn)                     ==> (object) {...} collection of elligible endpoints
 
 Account Methods:
 
@@ -101,6 +102,14 @@ Transactions Methods:
     transactionsByApp(params, fn)                   ==> (array) a list of transactions facilitated by the application, matching the search criteria
     transactionsStats(params, fn)                   ==> (object) statistics about the account associated with the token
     refund(pin, transactionId, fundsSource, amount, params, fn)         => (object) resulting Refund transaction resource
+    schedule(pin, destinationId, amount, scheduleDate, fundsSource, params, fn) => (object) resulting scheduled transaction
+    scheduled(fn)                                   ==> (object) list of scheduled transactions
+    scheduledById(id, fn)                           ==> (object) requested scheduled transaction
+    editScheduled(id, pin, fn)                      ==> (object) resulting edited scheduled transaction
+    deleteScheduledById(id, pin, fn)                ==> (string) id of deleted scheduled transaction
+    deleteAllScheduled(pin, fn)                     ==> (object) list of ids of deleted scheduled transactions
+
+
     
 Money Request Methods:
 
@@ -126,6 +135,10 @@ Offsite Gateway Methods:
     verifyGatewaySignature(signature, checkout_id, amount)      ==> (bool) is signature valid?
 
 ## Changelog
+
+1.1.2
+* Added new OAuth/catalog endpoint.
+* Added new `transactions/scheduled` endpoint with unit tests and examples.
 
 1.1.1
 * Change module name to 'dwolla-node'
