@@ -9,7 +9,7 @@ Bindings for the Dwolla API.  All API methods are asynchronous.
 Officially maintained by Dwolla.  Contributions are welcomed with open arms.
 
 ## Version
-1.1.2
+1.1.3
 
 ## Installation
 
@@ -135,6 +135,9 @@ Offsite Gateway Methods:
     verifyGatewaySignature(signature, checkout_id, amount)      ==> (bool) is signature valid?
 
 ## Changelog
+
+1.1.3
+* Added `verified_account` parameter to OAuth authorization URL function.
 
 1.1.2
 * Added new OAuth/catalog endpoint.
