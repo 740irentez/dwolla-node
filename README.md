@@ -1,15 +1,18 @@
-# dwolla-node: Dwolla API wrapper
+# dwolla-node
 
-[![Join the chat at https://gitter.im/Dwolla/dwolla-node](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Dwolla/dwolla-node?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+Official Node wrapper for Dwolla's v1 API
 
-![travis-ci badge](https://travis-ci.org/Dwolla/dwolla-node.svg?branch=master)
+## Deprecation warning
 
-Bindings for the Dwolla API.  All API methods are asynchronous.  
+This repository is for an old version of our API and is no longer actively maintained. Please use our [new SDKs](https://developers.dwolla.com/pages/sdks.html).
 
-Officially maintained by Dwolla.  Contributions are welcomed with open arms.
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 
 ## Version
+
 1.1.3
+
+![travis-ci badge](https://travis-ci.org/Dwolla/dwolla-node.svg?branch=master)
 
 ## Installation
 
