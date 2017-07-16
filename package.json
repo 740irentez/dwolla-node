@@ -3,7 +3,7 @@
   "contributors": ["Gordon Zheng <gordon@dwolla.com>", "David Stancu <david@dwolla.com>"],
   "name": "dwolla-node",
   "description": "Official NodeJS Wrapper for Dwolla's API (based off of Kenan Shifflett's node-dwolla library).",
-  "version": "1.1.3",
+  "version": "2.0.0",
   "repository": {
     "type": "git",
     "url": "git@github.com:Dwolla/dwolla-node.git"
@@ -11,10 +11,10 @@
   "license": "MIT",
   "main": "./lib/dwolla.js",
   "engines": {
-    "node": ">=0.10 <0.12"
+    "node": ">= 4.0"
   },
   "dependencies": {
-      "restler": "~3.2"
+      "restler": "3.4.0"
   },
   "devDependencies": {
     "should": "4.0.4",

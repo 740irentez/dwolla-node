@@ -1,5 +1,6 @@
 var mockery = require('mockery');
 var events = require('events');
+var should = require('should');
 
 var FAKE_CREDENTIALS = {
   appKey: 'fakekey',
@@ -27,42 +28,34 @@ var restlerMock = {
 	mockEmitter: null,
 	lastRequest: null,
   get: function(url, options) {
-    this.lastRequest = {
-    	url: url,
-    	options: options.query
-    };
+    this.lastRequest = { url, options };
 
     // store and return fake RestRequest object:
     this.mockEmitter = new events.EventEmitter();
     return this.mockEmitter;
   },
-  postJson: function(url, data) {
-  	this.lastRequest = {
-    	url: url,
-    	options: data
-  },
+  postJson: function(url, data, options) {
+  	this.lastRequest = { url, data, options };
     this.mockEmitter = new events.EventEmitter();
     return this.mockEmitter;
   },
-  putJson: function(url, data) {
-    this.lastRequest = {
-      url: url,
-      options: data
-  },
+  putJson: function(url, data, options) {
+    this.lastRequest = { url, data, options };
     this.mockEmitter = new events.EventEmitter();
     return this.mockEmitter;
   },
   del: function(url, options) {
-    this.lastRequest = {
-      url: url,
-      options: options.query
-    };
+    this.lastRequest = { url, options };
 
     // store and return fake RestRequest object:
     this.mockEmitter = new events.EventEmitter();
     return this.mockEmitter;
   }
 };
+var someResponse = { test: 'value' };
+var complete = (response) => {
+  restlerMock.mockEmitter.emit('complete', { Success: true, Message: "Success", Response: response || someResponse });
+}
 
 mockery.registerMock('restler', restlerMock);
 mockery.enable({
@@ -74,5 +67,16 @@ mockery.enable({
 
 module.exports = {
 	restlerMock: restlerMock,
-  fakeKeys: FAKE_CREDENTIALS
+  fakeKeys: FAKE_CREDENTIALS,
+  someResponse: someResponse,
+  lastRequest: function(cb) {
+    cb(restlerMock.lastRequest, complete);
+  },
+  assertGoodResponse: (done) => {
+    return (err, response) => {
+      should.not.exist(err);
+      response.should.eql(someResponse)
+      done();
+    };
+  }
 };

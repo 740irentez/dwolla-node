@@ -40,29 +40,32 @@ describe('Offsite Gateway', function() {
 
   describe('get existing checkout', function() {
     it('should make the right request', function(done) {
-      dwolla.getCheckout('d0429a55-c338-4139-b273-48d2f8c45693', function() {});
+      dwolla.getCheckout('d0429a55-c338-4139-b273-48d2f8c45693', init.assertGoodResponse(done));
 
-      init.restlerMock.lastRequest.url.should.equal('https://www.dwolla.com/oauth/rest/offsitegateway/checkouts/d0429a55-c338-4139-b273-48d2f8c45693');
-      init.restlerMock.lastRequest.options.should.eql({
-        client_id: init.fakeKeys.appKey,
-        client_secret: init.fakeKeys.appSecret
+      init.lastRequest((lastRequest, complete) => {
+        lastRequest.url.should.equal('https://www.dwolla.com/oauth/rest/offsitegateway/checkouts/d0429a55-c338-4139-b273-48d2f8c45693');
+        lastRequest.options.query.should.eql({
+          client_id: init.fakeKeys.appKey,
+          client_secret: init.fakeKeys.appSecret
+        });
+        complete();
       });
-
-      done();
     });
   });
 
   describe('complete checkout', function() {
     it('should make the right request', function(done) {
-      dwolla.completeCheckout('d0429a55-c338-4139-b273-48d2f8c45693', function() {});
+      dwolla.completeCheckout('d0429a55-c338-4139-b273-48d2f8c45693', init.assertGoodResponse(done));
 
-      init.restlerMock.lastRequest.url.should.equal('https://www.dwolla.com/oauth/rest/offsitegateway/checkouts/d0429a55-c338-4139-b273-48d2f8c45693/complete');
-      init.restlerMock.lastRequest.options.should.eql({
-        client_id: init.fakeKeys.appKey,
-        client_secret: init.fakeKeys.appSecret
+      init.lastRequest((lastRequest, complete) => {
+        lastRequest.url.should.equal('https://www.dwolla.com/oauth/rest/offsitegateway/checkouts/d0429a55-c338-4139-b273-48d2f8c45693/complete');
+        lastRequest.data.should.eql({
+          client_id: init.fakeKeys.appKey,
+          client_secret: init.fakeKeys.appSecret
+        });
+
+        complete();
       });
-
-      done();
     });
   });
 
@@ -99,18 +102,20 @@ describe('Offsite Gateway', function() {
         done();
       });
 
-      init.restlerMock.lastRequest.url.should.equal('https://www.dwolla.com/oauth/rest/offsitegateway/checkouts');
-      init.restlerMock.lastRequest.options.should.eql( 
-        {
-          'client_id': init.fakeKeys.appKey,
-          'client_secret': init.fakeKeys.appSecret, 
-          'redirect': 'https://google.com',
-          'purchaseOrder': purchaseOrder,
-          'allowFundingSources': true,
-          'orderId': 'blah'
-        });
+      init.lastRequest((lastRequest, complete) => {
+        lastRequest.url.should.equal('https://www.dwolla.com/oauth/rest/offsitegateway/checkouts');
+        lastRequest.data.should.eql( 
+          {
+            'client_id': init.fakeKeys.appKey,
+            'client_secret': init.fakeKeys.appSecret, 
+            'redirect': 'https://google.com',
+            'purchaseOrder': purchaseOrder,
+            'allowFundingSources': true,
+            'orderId': 'blah'
+          });
 
-      init.restlerMock.mockEmitter.emit('complete', JSON.parse('{"Success":true,"Message":"Success","Response":{"CheckoutId":"39940885-aa56-4c7b-a61f-0c271a7dd671"}}'));
+        complete({ CheckoutId: "39940885-aa56-4c7b-a61f-0c271a7dd671" });
+      });
     });
   });
 });

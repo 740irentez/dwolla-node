@@ -8,23 +8,27 @@ describe('Contacts', function() {
   describe('get contacts', function() {
     it('Should make the correct request', function(done) {
       dwolla.setToken(init.fakeKeys.accessToken);
-      dwolla.contacts(function() {});
+      dwolla.contacts(init.assertGoodResponse(done));
 
-      init.restlerMock.lastRequest.url.should.equal('https://www.dwolla.com/oauth/rest/contacts/');
-      init.restlerMock.lastRequest.options.should.eql({oauth_token: init.fakeKeys.accessToken});
-
-      done();
+      init.lastRequest((lastRequest, complete) => {
+        lastRequest.url.should.equal('https://www.dwolla.com/oauth/rest/contacts/');
+        lastRequest.options.accessToken.should.equal(init.fakeKeys.accessToken);
+        lastRequest.options.query.should.eql({});
+        complete();
+      });
     });
   });
 
   describe('get nearby', function() {
       it('Should make the correct request', function(done) {
-      dwolla.nearby('35', '25', function() {});
+      dwolla.nearby('35', '25', init.assertGoodResponse(done));
 
-      init.restlerMock.lastRequest.url.should.equal('https://www.dwolla.com/oauth/rest/contacts/nearby');
-      init.restlerMock.lastRequest.options.should.eql({client_id: init.fakeKeys.appKey, client_secret: init.fakeKeys.appSecret, latitude: '35', longitude: '25'});
-
-      done();
+      init.lastRequest((lastRequest, complete) => {
+        lastRequest.url.should.equal('https://www.dwolla.com/oauth/rest/contacts/nearby');
+        should.not.exist(lastRequest.options.accessToken);
+        lastRequest.options.query.should.eql({client_id: init.fakeKeys.appKey, client_secret: init.fakeKeys.appSecret, latitude: '35', longitude: '25'});
+        complete();
+      });
     });
   });
 });

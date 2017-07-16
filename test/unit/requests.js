@@ -9,12 +9,15 @@ describe('Requests', function() {
     it('Should make the correct request', function (done) {
 
       dwolla.setToken(init.fakeKeys.accessToken);
-      dwolla.request('812-111-1111', '5.00', function () {});
+      dwolla.request('812-111-1111', '5.00', init.assertGoodResponse(done));
 
-      init.restlerMock.lastRequest.url.should.equal('https://www.dwolla.com/oauth/rest/requests/');
-      init.restlerMock.lastRequest.options.should.eql({oauth_token: init.fakeKeys.accessToken, sourceId: '812-111-1111', amount: '5.00'});
+      init.lastRequest((lastRequest, complete) => {
+        lastRequest.url.should.equal('https://www.dwolla.com/oauth/rest/requests/');
+        lastRequest.options.accessToken.should.equal(init.fakeKeys.accessToken);
+        lastRequest.data.should.eql({sourceId: '812-111-1111', amount: '5.00'});
 
-      done();
+        complete();
+      });
     });
   });
 
@@ -22,12 +25,15 @@ describe('Requests', function() {
     it('Should make the correct request', function (done) {
 
       dwolla.setToken(init.fakeKeys.accessToken);
-      dwolla.requests(function () {});
+      dwolla.requests(init.assertGoodResponse(done));
 
-      init.restlerMock.lastRequest.url.should.equal('https://www.dwolla.com/oauth/rest/requests/');
-      init.restlerMock.lastRequest.options.should.eql({oauth_token: init.fakeKeys.accessToken});
+      init.lastRequest((lastRequest, complete) => {
+        lastRequest.url.should.equal('https://www.dwolla.com/oauth/rest/requests/');
+        lastRequest.options.accessToken.should.equal(init.fakeKeys.accessToken);
+        lastRequest.options.query.should.eql({});
 
-      done();
+        complete();
+      });
     });
   });
 
@@ -35,12 +41,15 @@ describe('Requests', function() {
     it('Should make the correct request', function (done) {
 
       dwolla.setToken(init.fakeKeys.accessToken);
-      dwolla.requestById('12345678', function () {});
+      dwolla.requestById('12345678', init.assertGoodResponse(done));
 
-      init.restlerMock.lastRequest.url.should.equal('https://www.dwolla.com/oauth/rest/requests/12345678');
-      init.restlerMock.lastRequest.options.should.eql({oauth_token: init.fakeKeys.accessToken});
+      init.lastRequest((lastRequest, complete) => {
+        lastRequest.url.should.equal('https://www.dwolla.com/oauth/rest/requests/12345678');
+        lastRequest.options.accessToken.should.equal(init.fakeKeys.accessToken);
+        lastRequest.options.query.should.eql({});
 
-      done();
+        complete();
+      });
     });
   });
 
@@ -48,12 +57,19 @@ describe('Requests', function() {
     it('Should make the correct request', function (done) {
 
       dwolla.setToken(init.fakeKeys.accessToken);
-      dwolla.cancelRequest('12345678', function () {});
+      dwolla.cancelRequest('12345678', (err, response) => {
+        should.not.exist(err);
+        response.should.equal(true);
+        done();
+      });
 
-      init.restlerMock.lastRequest.url.should.equal('https://www.dwolla.com/oauth/rest/requests/12345678/cancel');
-      init.restlerMock.lastRequest.options.should.eql({oauth_token: init.fakeKeys.accessToken});
+      init.lastRequest((lastRequest, complete) => {
+        lastRequest.url.should.equal('https://www.dwolla.com/oauth/rest/requests/12345678/cancel');
+        lastRequest.options.accessToken.should.equal(init.fakeKeys.accessToken);
+        lastRequest.data.should.eql({});
 
-      done();
+        complete();
+      });
     });
   });
 
@@ -61,12 +77,15 @@ describe('Requests', function() {
     it('Should make the correct request', function (done) {
 
       dwolla.setToken(init.fakeKeys.accessToken);
-      dwolla.fulfillRequest('1234', '12345678', '10.00', function () {});
+      dwolla.fulfillRequest('1234', '12345678', '10.00', init.assertGoodResponse(done));
 
-      init.restlerMock.lastRequest.url.should.equal('https://www.dwolla.com/oauth/rest/requests/12345678/fulfill');
-      init.restlerMock.lastRequest.options.should.eql({oauth_token: init.fakeKeys.accessToken, pin: '1234', request_id: '12345678', amount: '10.00'});
+      init.lastRequest((lastRequest, complete) => {
+        lastRequest.url.should.equal('https://www.dwolla.com/oauth/rest/requests/12345678/fulfill');
+        lastRequest.options.accessToken.should.equal(init.fakeKeys.accessToken);
+        lastRequest.data.should.eql({pin: '1234', request_id: '12345678', amount: '10.00'});
 
-      done();
+        complete();
+      });
     });
   });
 });

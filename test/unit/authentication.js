@@ -1,9 +1,7 @@
 var init = require('./testInit');
 var should = require('should');
-var util = require('util');
 
 var dwolla = require('../../lib/dwolla')(init.fakeKeys.appKey, init.fakeKeys.appSecret);
-
 
 describe('Authentication', function() {
   describe('oauth initiation URL', function() {
@@ -12,9 +10,9 @@ describe('Authentication', function() {
       var redirect = "https://www.google.com/";
       var url = dwolla.authUrl(redirect);
 
-      var format = 'https://uat.dwolla.com/oauth/v2/authenticate?client_id=%s&response_type=code&scope=Send%7CTransactions%7CBalance%7CRequest%7CContacts%7CAccountInfoFull%7CFunding%7CManageAccount%7CScheduled&redirect_uri=%s';
-
-      url.should.equal(util.format(format, encodeURIComponent(init.fakeKeys.appKey), encodeURIComponent(redirect)));
+      var encodedApiKey = encodeURIComponent(init.fakeKeys.appKey);
+      var encodedRedirect = encodeURIComponent(redirect);
+      url.should.equal(`https://sandbox.dwolla.com/oauth/v2/authenticate?client_id=${encodedApiKey}&response_type=code&scope=Send%7CTransactions%7CBalance%7CRequest%7CContacts%7CAccountInfoFull%7CFunding%7CManageAccount%7CScheduled&redirect_uri=${encodedRedirect}`);
       done();
     });
 
@@ -23,9 +21,9 @@ describe('Authentication', function() {
       var redirect = "https://www.google.com/";
       var url = dwolla.authUrl(redirect);
 
-      var format = 'https://www.dwolla.com/oauth/v2/authenticate?client_id=%s&response_type=code&scope=Send%7CTransactions%7CBalance%7CRequest%7CContacts%7CAccountInfoFull%7CFunding%7CManageAccount%7CScheduled&redirect_uri=%s';
-
-      url.should.equal(util.format(format, encodeURIComponent(init.fakeKeys.appKey), encodeURIComponent(redirect)));
+      var encodedApiKey = encodeURIComponent(init.fakeKeys.appKey);
+      var encodedRedirect = encodeURIComponent(redirect);
+      url.should.equal(`https://www.dwolla.com/oauth/v2/authenticate?client_id=${encodedApiKey}&response_type=code&scope=Send%7CTransactions%7CBalance%7CRequest%7CContacts%7CAccountInfoFull%7CFunding%7CManageAccount%7CScheduled&redirect_uri=${encodedRedirect}`);
       done();
     });
 
@@ -40,7 +38,7 @@ describe('Authentication', function() {
       dwolla.finishAuth('1234', 'https://fakeredirect.com/', function() {});
 
       init.restlerMock.lastRequest.url.should.equal('https://www.dwolla.com/oauth/v2/token');
-      init.restlerMock.lastRequest.options.should.eql({client_id: init.fakeKeys.appKey, client_secret: init.fakeKeys.appSecret, grant_type: 'authorization_code', code: '1234', redirect_uri: 'https://fakeredirect.com/'});
+      init.restlerMock.lastRequest.data.should.eql({client_id: init.fakeKeys.appKey, client_secret: init.fakeKeys.appSecret, grant_type: 'authorization_code', code: '1234', redirect_uri: 'https://fakeredirect.com/'});
 
       done();
     });
@@ -51,7 +49,7 @@ describe('Authentication', function() {
       dwolla.refreshAuth('fake_refresh_token', function() {});
 
       init.restlerMock.lastRequest.url.should.equal('https://www.dwolla.com/oauth/v2/token');
-      init.restlerMock.lastRequest.options.should.eql({client_id: init.fakeKeys.appKey, client_secret: init.fakeKeys.appSecret, grant_type: 'refresh_token', refresh_token: 'fake_refresh_token'});
+      init.restlerMock.lastRequest.data.should.eql({client_id: init.fakeKeys.appKey, client_secret: init.fakeKeys.appSecret, grant_type: 'refresh_token', refresh_token: 'fake_refresh_token'});
 
       done();
     });
