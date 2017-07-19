@@ -17,12 +17,15 @@ describe('MassPay', function() {
       initial data. We can use any dummy object in order to mock this and verify
       if there are any points of failure. 
       */
-      dwolla.createMassPayJob('12345678', '1234', { item: 'test' }, {}, function() {});
+      dwolla.createMassPayJob('12345678', '1234', { item: 'test' }, {}, init.assertGoodResponse(done));
 
-      init.restlerMock.lastRequest.url.should.equal('https://www.dwolla.com/oauth/rest/masspay/');
-      init.restlerMock.lastRequest.options.should.eql({oauth_token: init.fakeKeys.accessToken, fundsSource: '12345678', pin: '1234', items: { item: 'test' }});
+      init.lastRequest((lastRequest, complete) => {
+        lastRequest.url.should.equal('https://www.dwolla.com/oauth/rest/masspay/');
+        lastRequest.options.accessToken.should.equal(init.fakeKeys.accessToken);
+        lastRequest.data.should.eql({fundsSource: '12345678', pin: '1234', items: { item: 'test' }});
 
-      done();
+        complete();
+      });
     });
   });
 
@@ -30,12 +33,15 @@ describe('MassPay', function() {
     it('Should make the correct request', function(done) {
 
       dwolla.setToken(init.fakeKeys.accessToken);
-      dwolla.getMassPayJob('12345678', function() {});
+      dwolla.getMassPayJob('12345678', init.assertGoodResponse(done));
 
-      init.restlerMock.lastRequest.url.should.equal('https://www.dwolla.com/oauth/rest/masspay/12345678');
-      init.restlerMock.lastRequest.options.should.eql({oauth_token: init.fakeKeys.accessToken});
+      init.lastRequest((lastRequest, complete) => {
+        lastRequest.url.should.equal('https://www.dwolla.com/oauth/rest/masspay/12345678');
+        lastRequest.options.accessToken.should.equal(init.fakeKeys.accessToken);
+        lastRequest.options.query.should.eql({});
 
-      done();
+        complete();
+      });
     });
   });
 
@@ -43,12 +49,15 @@ describe('MassPay', function() {
     it('Should make the correct request', function(done) {
 
       dwolla.setToken(init.fakeKeys.accessToken);
-      dwolla.getMassPayJobItems('12345678', function() {});
+      dwolla.getMassPayJobItems('12345678', { limit: 10, skip: 5 }, init.assertGoodResponse(done));
 
-      init.restlerMock.lastRequest.url.should.equal('https://www.dwolla.com/oauth/rest/masspay/12345678/items');
-      init.restlerMock.lastRequest.options.should.eql({oauth_token: init.fakeKeys.accessToken});
+      init.lastRequest((lastRequest, complete) => {
+        lastRequest.url.should.equal('https://www.dwolla.com/oauth/rest/masspay/12345678/items');
+        lastRequest.options.accessToken.should.equal(init.fakeKeys.accessToken);
+        lastRequest.options.query.should.eql({ limit: 10, skip: 5 });
 
-      done();
+        complete();
+      });
     });
   });
 
@@ -56,12 +65,15 @@ describe('MassPay', function() {
     it('Should make the correct request', function(done) {
 
       dwolla.setToken(init.fakeKeys.accessToken);
-      dwolla.getMassPayJobItem('12345678', '987654321', function() {});
+      dwolla.getMassPayJobItem('12345678', '987654321', init.assertGoodResponse(done));
 
-      init.restlerMock.lastRequest.url.should.equal('https://www.dwolla.com/oauth/rest/masspay/12345678/items/987654321');
-      init.restlerMock.lastRequest.options.should.eql({oauth_token: init.fakeKeys.accessToken});
+      init.lastRequest((lastRequest, complete) => {
+        lastRequest.url.should.equal('https://www.dwolla.com/oauth/rest/masspay/12345678/items/987654321');
+        lastRequest.options.accessToken.should.equal(init.fakeKeys.accessToken);
+        lastRequest.options.query.should.eql({});
 
-      done();
+        complete();
+      });
     });
   });
 
@@ -69,12 +81,15 @@ describe('MassPay', function() {
     it('Should make the correct request', function(done) {
 
       dwolla.setToken(init.fakeKeys.accessToken);
-      dwolla.getMassPayJobs(function() {});
+      dwolla.getMassPayJobs(init.assertGoodResponse(done));
 
-      init.restlerMock.lastRequest.url.should.equal('https://www.dwolla.com/oauth/rest/masspay/');
-      init.restlerMock.lastRequest.options.should.eql({oauth_token: init.fakeKeys.accessToken});
+      init.lastRequest((lastRequest, complete) => {
+        lastRequest.url.should.equal('https://www.dwolla.com/oauth/rest/masspay/');
+        lastRequest.options.accessToken.should.equal(init.fakeKeys.accessToken);
+        lastRequest.options.query.should.eql({});
 
-      done();
+        complete();
+      });
     });
   });
 

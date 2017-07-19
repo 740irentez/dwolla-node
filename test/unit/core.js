@@ -21,7 +21,7 @@ describe('Sandbox flag', function() {
 
 		dwolla.balance(function() {});
 
-		init.restlerMock.lastRequest.url.should.equal('https://uat.dwolla.com/oauth/rest/balance/');
+		init.restlerMock.lastRequest.url.should.equal('https://sandbox.dwolla.com/oauth/rest/balance/');
 		done();
 	});
 

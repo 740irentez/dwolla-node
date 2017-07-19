@@ -10,7 +10,7 @@ This repository is for an old version of our API and is no longer actively maint
 
 ## Version
 
-1.1.3
+2.0.0
 
 ![travis-ci badge](https://travis-ci.org/Dwolla/dwolla-node.svg?branch=master)
 
@@ -138,6 +138,10 @@ Offsite Gateway Methods:
     verifyGatewaySignature(signature, checkout_id, amount)      ==> (bool) is signature valid?
 
 ## Changelog
+
+2.0.0
+* Passing token via Authorization header
+* Update minimum Node version to 4.0
 
 1.1.3
 * Added `verified_account` parameter to OAuth authorization URL function.
